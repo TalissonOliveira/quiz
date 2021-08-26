@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
   background-color: #00000070;
@@ -22,21 +23,22 @@ const FooterWrapper = styled.footer`
       text-decoration: underline;
     }
   }
-`
+`;
 
 export default function Footer(props) {
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <FooterWrapper {...props}>
-      <a>
+      <a href="https://github.com/TalissonOliveira/quiz">
         <img src="https://octodex.github.com/images/spidertocat.png" alt="Logo GitHub" />
       </a>
       <p>
         Visite o projeto no
         {' '}
-        <a href="https://github.com/TalissonOliveira/quiz" target="_blank">
+        <a href="https://github.com/TalissonOliveira/quiz" target="_blank" rel="noreferrer">
           <span>GitHub</span>
         </a>
       </p>
     </FooterWrapper>
-  )
+  );
 }

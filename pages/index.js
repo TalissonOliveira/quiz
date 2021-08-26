@@ -1,18 +1,12 @@
-import styled from 'styled-components'
-import db from '../db.json'
-import Widget from '../src/components/Widget'
-import GitHubCorner from '../src/components/GithubCorner'
-import QuizBackground from '../src/components/QuizBackground'
-import Footer from '../src/components/Footer'
-import Head from 'next/head'
+import React from 'react';
+import styled from 'styled-components';
+import Head from 'next/head';
+import db from '../db.json';
+import Widget from '../src/components/Widget';
+import GitHubCorner from '../src/components/GithubCorner';
+import QuizBackground from '../src/components/QuizBackground';
+import Footer from '../src/components/Footer';
 
-
-const BackgroundImage = styled.div`
-    background-image: url(${db.bg});
-    flex: 1;
-    background-size: cover;
-    background-position: center;
-`
 export const QuizContainer = styled.div`
   width: 100%;
   max-width: 350px;
@@ -22,7 +16,7 @@ export const QuizContainer = styled.div`
     margin: auto;
     padding: 15px;
   }
-`
+`;
 
 export default function Home() {
   return (
@@ -43,5 +37,5 @@ export default function Home() {
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/TalissonOliveira" />
     </QuizBackground>
-  )
+  );
 }

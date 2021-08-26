@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   border: 0;
   right: 0;
   z-index: 20;
-`
+`;
 
 const SVGWrapper = styled.svg`
   fill: ${({ theme }) => theme.colors.secondary};
@@ -29,7 +29,7 @@ const SVGWrapper = styled.svg`
       animation:octocat-wave 560ms ease-in-out
     }
   }
-`
+`;
 
 // eslint-disable-next-line react/prop-types
 export default function GitHubCorner({ projectUrl }) {
@@ -43,5 +43,5 @@ export default function GitHubCorner({ projectUrl }) {
         </SVGWrapper>
       </a>
     </Wrapper>
-  )
+  );
 }
