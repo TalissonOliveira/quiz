@@ -1,9 +1,33 @@
 {
     "bg": "https://ik.imagekit.io/imagens/bg-quiz_EAuLH5uA9_x3.png?updatedAt=1629842588086",
+    "questions": [
+        {
+          "image": "https://via.placeholder.com/400x400",
+          "title": "Pergunta 1",
+          "description": "Descrição da pergunta 1",
+          "answer": 2,
+          "alternatives": [
+            "Alternativa 1",
+            "Alternativa 2",
+            "Alternativa 3"
+         ]
+        },
+        {
+          "image": "https://via.placeholder.com/400x400",
+          "title": "Pergunta 2",
+          "description": "Descrição da pergunta 2",
+          "answer": 0,
+          "alternatives": [
+             "Alternativa 1",
+             "Alternativa 2"
+          ]
+        }
+    ],
     "theme": {
         "colors": {
         "primary": "#0d47a1",
         "secondary": "#29b6f6",
+        "tertiary": "rgba(63, 81, 181, 0.2)",
         "mainBg": "#171B35",
         "contrastText": "#FFFFFF",
         "wrong": "#FF5722",
