@@ -9,9 +9,15 @@ import GitHubCorner from '../src/components/GithubCorner';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
 
-function QuestionWidget({ question, questionIndex, totalQuestions }) {
+function QuestionWidget({
+  question,
+  questionIndex,
+  totalQuestions,
+  answer,
+  setAnswer,
+  onSubmit,
+}) {
   const questionId = questionIndex;
-  const [answer, setAnswer] = useState();
 
   return (
     <Widget>
@@ -41,34 +47,47 @@ function QuestionWidget({ question, questionIndex, totalQuestions }) {
           {question.description}
         </p>
 
-        <form>
-          {question.alternatives.map((alternative, alternativeIndex) => {
-            const alternativeId = `alternative_${alternativeIndex}`;
-            return (
-              <Widget.Alternative
-                as="label"
-                htmlFor={alternativeId}
-                onClick={() => setAnswer(alternativeIndex)}
-              >
-                <input type="radio" id={alternativeId} name={questionId} />
-                {alternative}
-              </Widget.Alternative>
-            );
-          })}
+        <form onSubmit={(event) => {
+          event.preventDefault();
+          onSubmit();
+        }}
+        >
+          <div>
+            {question.alternatives.map((alternative, alternativeIndex) => {
+              const alternativeId = `alternative_${alternativeIndex}`;
+              return (
+                <Widget.Alternative
+                  as="label"
+                  htmlFor={alternativeId}
+                  onClick={() => setAnswer(alternativeIndex)}
+                >
+                  {alternative}
+                  <input type="radio" id={alternativeId} name={questionId} />
+                </Widget.Alternative>
+              );
+            })}
+          </div>
+          <Button type="submit" className="button" disabled={answer === undefined}>
+            CONFIRMAR
+          </Button>
         </form>
 
-        <Button type="submit" className="button" disabled={answer === undefined}>
-          CONFIRMAR
-        </Button>
       </Widget.Content>
     </Widget>
   );
 }
 
 export default function QuizPage() {
-  const currentQuestion = 0;
+  const [answer, setAnswer] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const question = db.questions[currentQuestion];
   const totalQuestions = db.questions.length;
+
+  function handleSubmit() {
+    if (currentQuestion + 1 < totalQuestions) {
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  }
 
   return (
     <QuizBackground backgroundImage={db.bg}>
@@ -80,6 +99,9 @@ export default function QuizPage() {
           question={question}
           questionIndex={currentQuestion}
           totalQuestions={totalQuestions}
+          answer={answer}
+          setAnswer={setAnswer}
+          onSubmit={handleSubmit}
         />
         <Footer />
       </QuizContainer>

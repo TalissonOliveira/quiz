@@ -72,7 +72,7 @@ Widget.Alternative = styled.a`
   font-weight: 400;
 
   cursor: pointer;
-  transition: .2s;
+  transition: filter .2s;
 
   &:hover {
     filter: brightness(.8);
