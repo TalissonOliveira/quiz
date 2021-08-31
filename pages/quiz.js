@@ -13,11 +13,13 @@ function QuestionWidget({
   question,
   questionIndex,
   totalQuestions,
-  answer,
-  setAnswer,
   onSubmit,
 }) {
+  const [selectedAlternative, setSelectedAlternative] = useState(undefined);
+  const [isQuestionSubmited, setIsQuestionSubmited] = useState(false);
+  const isCorrectAlternative = selectedAlternative === question.answer;
   const questionId = questionIndex;
+  const hasAlternativeSelected = selectedAlternative !== undefined;
 
   return (
     <Widget>
@@ -49,7 +51,12 @@ function QuestionWidget({
 
         <form onSubmit={(event) => {
           event.preventDefault();
-          onSubmit();
+          setIsQuestionSubmited(true);
+          setTimeout(() => {
+            onSubmit();
+            setIsQuestionSubmited(false);
+            setSelectedAlternative(undefined);
+          }, 3 * 1000);
         }}
         >
           <div>
@@ -60,7 +67,7 @@ function QuestionWidget({
                   as="label"
                   key={alternativeId}
                   htmlFor={alternativeId}
-                  onClick={() => setAnswer(alternativeIndex)}
+                  onClick={() => setSelectedAlternative(alternativeIndex)}
                 >
                   {alternative}
                   <input type="radio" id={alternativeId} name={questionId} />
@@ -68,23 +75,24 @@ function QuestionWidget({
               );
             })}
           </div>
-          <Button type="submit" className="button" disabled={answer === undefined}>
+          <Button type="submit" className="button" disabled={!hasAlternativeSelected}>
             CONFIRMAR
           </Button>
         </form>
 
+        {isQuestionSubmited && isCorrectAlternative && <span>Alternativa correta</span>}
+        {isQuestionSubmited && !isCorrectAlternative && <span>Alternativa errada</span>}
       </Widget.Content>
     </Widget>
   );
 }
 
 export default function QuizPage() {
-  const [answer, setAnswer] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const question = db.questions[currentQuestion];
   const totalQuestions = db.questions.length;
 
-  function handleSubmit() {
+  function handleSubmitQuestion() {
     if (currentQuestion + 1 < totalQuestions) {
       setCurrentQuestion(currentQuestion + 1);
     }
@@ -100,9 +108,7 @@ export default function QuizPage() {
           question={question}
           questionIndex={currentQuestion}
           totalQuestions={totalQuestions}
-          answer={answer}
-          setAnswer={setAnswer}
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmitQuestion}
         />
         <Footer />
       </QuizContainer>
