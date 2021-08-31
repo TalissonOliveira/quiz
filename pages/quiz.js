@@ -58,6 +58,7 @@ function QuestionWidget({
               return (
                 <Widget.Alternative
                   as="label"
+                  key={alternativeId}
                   htmlFor={alternativeId}
                   onClick={() => setAnswer(alternativeIndex)}
                 >
