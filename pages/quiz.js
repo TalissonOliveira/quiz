@@ -4,6 +4,7 @@ import Head from 'next/head';
 import db from '../db.json';
 import QuizContainer from '../src/components/QuizContainer/QuizContainer';
 import Widget from '../src/components/Widget';
+import AlternativesForm from '../src/components/AlternativesForm';
 import Button from '../src/components/Button';
 import GitHubCorner from '../src/components/GithubCorner';
 import QuizBackground from '../src/components/QuizBackground';
@@ -49,7 +50,7 @@ function QuestionWidget({
           {question.description}
         </p>
 
-        <form onSubmit={(event) => {
+        <AlternativesForm onSubmit={(event) => {
           event.preventDefault();
           setIsQuestionSubmited(true);
           setTimeout(() => {
@@ -62,12 +63,17 @@ function QuestionWidget({
           <div>
             {question.alternatives.map((alternative, alternativeIndex) => {
               const alternativeId = `alternative_${alternativeIndex}`;
+              const isSelected = selectedAlternative === alternativeIndex;
+              const alternativeStatus = isCorrectAlternative ? 'SUCCESS' : 'ERROR';
+
               return (
                 <Widget.Alternative
                   as="label"
                   key={alternativeId}
                   htmlFor={alternativeId}
                   onClick={() => setSelectedAlternative(alternativeIndex)}
+                  data-selected={isSelected}
+                  data-status={isQuestionSubmited && alternativeStatus}
                 >
                   {alternative}
                   <input type="radio" id={alternativeId} name={questionId} />
@@ -78,7 +84,7 @@ function QuestionWidget({
           <Button type="submit" className="button" disabled={!hasAlternativeSelected}>
             CONFIRMAR
           </Button>
-        </form>
+        </AlternativesForm>
 
         {isQuestionSubmited && isCorrectAlternative && <span>Alternativa correta</span>}
         {isQuestionSubmited && !isCorrectAlternative && <span>Alternativa errada</span>}
