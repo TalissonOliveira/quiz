@@ -9,11 +9,6 @@ const QuizContainer = styled.div`
     margin: auto;
     padding: 15px;
   }
-
-  p:first-child {
-    margin-bottom: 33px;
-    line-height: 17px;
-  }
 `;
 
 export default QuizContainer;

@@ -30,7 +30,13 @@ export default function Home() {
             <h1>Marvel Studios</h1>
           </Widget.Header>
           <Widget.Content>
-            <p>Teste os seus conhecimentos sobre o universo Marvel!</p>
+            <p style={{
+              marginBottom: '33px',
+              lineHeight: '17px',
+            }}
+            >
+              Teste os seus conhecimentos sobre o universo Marvel!
+            </p>
             <form onSubmit={handleButton}>
               <Input
                 placeholder="Digite seu nome para jogar"

@@ -9,6 +9,7 @@ import Button from '../src/components/Button';
 import GitHubCorner from '../src/components/GithubCorner';
 import QuizBackground from '../src/components/QuizBackground';
 import Footer from '../src/components/Footer';
+import ResultScreen from '../src/components/ResultScreen';
 
 function QuestionWidget({
   question,
@@ -94,6 +95,7 @@ function QuestionWidget({
 }
 
 export default function QuizPage() {
+  const [screenStatus, setScreenStatus] = useState('QUIZ');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const question = db.questions[currentQuestion];
   const totalQuestions = db.questions.length;
@@ -101,6 +103,8 @@ export default function QuizPage() {
   function handleSubmitQuestion() {
     if (currentQuestion + 1 < totalQuestions) {
       setCurrentQuestion(currentQuestion + 1);
+    } else {
+      setScreenStatus('RESULT');
     }
   }
 
@@ -110,12 +114,15 @@ export default function QuizPage() {
         <title>Marvel Quiz</title>
       </Head>
       <QuizContainer>
-        <QuestionWidget
-          question={question}
-          questionIndex={currentQuestion}
-          totalQuestions={totalQuestions}
-          onSubmit={handleSubmitQuestion}
-        />
+        {screenStatus === 'QUIZ' && (
+          <QuestionWidget
+            question={question}
+            questionIndex={currentQuestion}
+            totalQuestions={totalQuestions}
+            onSubmit={handleSubmitQuestion}
+          />
+        )}
+        {screenStatus === 'RESULT' && <ResultScreen />}
         <Footer />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/TalissonOliveira" />
