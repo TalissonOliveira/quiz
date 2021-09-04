@@ -6,12 +6,37 @@ import { questions } from '../../../db.json';
 
 const Answers = styled.div`
   width: 100%;
-  height: 100%;
+  height: 231px;
   background-color: transparent;
 
   padding: 8px;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius};
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: ${({ theme }) => theme.colors.primary} ${({ theme }) => theme.colors.tertiary};
+
+  &::-webkit-scrollbar {
+    width: 13px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 13px 13px ${({ theme }) => theme.colors.tertiary};
+    border: solid 4px transparent;
+    border-radius: 13px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 13px 13px ${({ theme }) => theme.colors.primary};
+    border: solid 4px transparent;
+    border-radius: 13px;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
 
   div {
     background: ${({ theme }) => theme.colors.tertiary};
@@ -37,7 +62,6 @@ const Answers = styled.div`
     }
 
     &::-webkit-scrollbar {
-      width: 8px;
       height: 4px;
     }
     &::-webkit-scrollbar-track {
@@ -58,7 +82,11 @@ function ResultScreen() {
       <Widget.Header>
         Resultado
       </Widget.Header>
-      <Widget.Content>
+      <Widget.Content style={{
+        paddingLeft: '28px',
+        paddingRight: '28px',
+      }}
+      >
         <p style={{
           marginBottom: '8px',
           lineHeight: '16.8px',
