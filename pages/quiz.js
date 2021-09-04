@@ -16,12 +16,22 @@ function QuestionWidget({
   questionIndex,
   totalQuestions,
   onSubmit,
+  answers,
+  setAnswers,
 }) {
   const [selectedAlternative, setSelectedAlternative] = useState(undefined);
   const [isQuestionSubmited, setIsQuestionSubmited] = useState(false);
   const isCorrectAlternative = selectedAlternative === question.answer;
   const questionId = questionIndex;
   const hasAlternativeSelected = selectedAlternative !== undefined;
+
+  function handleScore() {
+    if (isCorrectAlternative) {
+      setAnswers([...answers, true]);
+      return;
+    }
+    setAnswers([...answers, false]);
+  }
 
   return (
     <Widget>
@@ -82,7 +92,12 @@ function QuestionWidget({
               );
             })}
           </div>
-          <Button type="submit" className="button" disabled={!hasAlternativeSelected}>
+          <Button
+            type="submit"
+            className="button"
+            disabled={!hasAlternativeSelected}
+            onClick={handleScore}
+          >
             CONFIRMAR
           </Button>
         </AlternativesForm>
@@ -97,6 +112,7 @@ function QuestionWidget({
 export default function QuizPage() {
   const [screenStatus, setScreenStatus] = useState('QUIZ');
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState([]);
   const question = db.questions[currentQuestion];
   const totalQuestions = db.questions.length;
 
@@ -120,9 +136,11 @@ export default function QuizPage() {
             questionIndex={currentQuestion}
             totalQuestions={totalQuestions}
             onSubmit={handleSubmitQuestion}
+            answers={answers}
+            setAnswers={setAnswers}
           />
         )}
-        {screenStatus === 'RESULT' && <ResultScreen />}
+        {screenStatus === 'RESULT' && <ResultScreen answers={answers} />}
         <Footer />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/TalissonOliveira" />

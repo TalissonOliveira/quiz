@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
@@ -73,10 +74,19 @@ const Answers = styled.div`
       border-radius: 20px;
     }
   }
+
+  div[data-correct-question="true"] {
+    background: ${({ theme }) => theme.colors.success};
+  }
+
+  div[data-correct-question="false"] {
+    background: ${({ theme }) => theme.colors.wrong};
+  }
 `;
 
-function ResultScreen() {
+function ResultScreen({ answers }) {
   const { query } = useRouter();
+
   return (
     <Widget>
       <Widget.Header>
@@ -106,10 +116,14 @@ function ResultScreen() {
           Você fez 100 pontos, parabéns!
         </h2>
         <Answers>
-          {questions.map((item) => {
-            console.log('teste');
+          {questions.map((item, answerIndex) => {
+            const answerId = `answer_${answerIndex}`;
+
             return (
-              <div>
+              <div
+                key={answerId}
+                data-correct-question={answers[answerIndex]}
+              >
                 {item.title}
               </div>
             );
