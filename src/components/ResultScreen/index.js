@@ -87,6 +87,16 @@ const Answers = styled.div`
 function ResultScreen({ answers }) {
   const { query } = useRouter();
 
+  function calculateScore() {
+    return answers.reduce((accumulator, currentValue) => {
+      if (currentValue === true) {
+        // eslint-disable-next-line no-param-reassign
+        accumulator += 100 / answers.length;
+      }
+      return accumulator;
+    }, 0).toFixed(1);
+  }
+
   return (
     <Widget>
       <Widget.Header>
@@ -113,7 +123,11 @@ function ResultScreen({ answers }) {
           lineHeight: '21.6px',
         }}
         >
-          Você fez 100 pontos, parabéns!
+          Você fez
+          {' '}
+          {calculateScore()}
+          {' '}
+          pontos, parabéns!
         </h2>
         <Answers>
           {questions.map((item, answerIndex) => {
