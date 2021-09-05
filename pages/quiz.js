@@ -140,7 +140,12 @@ export default function QuizPage() {
             setAnswers={setAnswers}
           />
         )}
-        {screenStatus === 'RESULT' && <ResultScreen answers={answers} />}
+        {screenStatus === 'RESULT' && (
+          <ResultScreen
+            answers={answers}
+            setScreenStatus={setScreenStatus}
+          />
+        )}
         <Footer />
       </QuizContainer>
       <GitHubCorner projectUrl="https://github.com/TalissonOliveira" />

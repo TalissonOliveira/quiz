@@ -91,7 +91,8 @@
         "mainBg": "#171B35",
         "contrastText": "#FFFFFF",
         "wrong": "#FF5722",
-        "success": "#4CAF50"
+        "success": "#4CAF50",
+        "links": "#9CA9EF"
         },
         "borderRadius": "4px"
     }

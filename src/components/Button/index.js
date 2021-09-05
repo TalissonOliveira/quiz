@@ -11,6 +11,7 @@ const Button = styled.button`
   font-family: 'Lato', sans-serif;
   font-weight: bold;
   letter-spacing: 1.25px;
+  text-transform: uppercase;
 
   cursor: pointer;
   pointer-events: all;

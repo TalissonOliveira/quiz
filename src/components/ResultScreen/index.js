@@ -2,7 +2,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Widget from '../Widget';
+import Button from '../Button';
 import { questions } from '../../../db.json';
 
 const Answers = styled.div`
@@ -10,6 +12,7 @@ const Answers = styled.div`
   height: 231px;
   background-color: transparent;
 
+  margin-bottom: 24px;
   padding: 8px;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -84,7 +87,7 @@ const Answers = styled.div`
   }
 `;
 
-function ResultScreen({ answers }) {
+function ResultScreen({ answers, setScreenStatus }) {
   const { query } = useRouter();
 
   function calculateScore() {
@@ -143,6 +146,21 @@ function ResultScreen({ answers }) {
             );
           })}
         </Answers>
+
+        <Button
+          style={{
+            width: '100%',
+            marginBottom: '17px',
+          }}
+          onClick={() => setScreenStatus('QUIZ')}
+        >
+          Jogar novamente
+        </Button>
+
+        <Link href="/">
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a>Voltar para a home</a>
+        </Link>
       </Widget.Content>
     </Widget>
   );

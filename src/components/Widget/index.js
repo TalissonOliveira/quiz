@@ -55,6 +55,24 @@ Widget.Content = styled.div`
     list-style: none;
     padding: 0;
   }
+
+  a {
+    display: block;
+
+    color: ${({ theme }) => theme.colors.links};
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 17px;
+    text-align: center;
+
+    transition: filter .2s;
+
+    &:hover {
+      filter: brightness(.8)
+    }
+  }
 `;
 
 Widget.Alternative = styled.a`
